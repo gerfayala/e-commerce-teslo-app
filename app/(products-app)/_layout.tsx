@@ -19,7 +19,7 @@ const CheckAuthenticationLayout = () => {
       </Box>
     );
   }
-  if (status === 'authenticated') {
+  if (status === 'unauthenticated') {
     return <Redirect href={'/auth/login'} />;
   }
 

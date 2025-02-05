@@ -10,18 +10,27 @@ export interface AuthResponse {
   token: string;
 }
 
-const returnUserToken = (data: AuthResponse) => {
-  const {id, email, fullName, isActive, roles, token} = data;
+const returnUserToken = (
+  data: AuthResponse
+): {
+  user: User;
+  token: string;
+} => {
+  // const { id, email, fullName, isActive, roles, token } = data;
+  const {token, ...user} = data;
 
-  const user: User = {
-    id,
-    email,
-    fullName,
-    isActive,
-    roles
+  // const user: User = {
+  //   id,
+  //   email,
+  //   fullName,
+  //   isActive,
+  //   roles,
+  // };
+
+  return {
+    user,
+    token
   };
-
-  return {user, token};
 };
 
 export const authLogin = async (email: string, password: string) => {
@@ -32,9 +41,12 @@ export const authLogin = async (email: string, password: string) => {
       email,
       password
     });
+
     return returnUserToken(data);
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    console.log('estoy aqui al error de auth de axios ' + error);
+    // throw new Error('User and/or password not valid');
     return null;
   }
 };
@@ -42,9 +54,10 @@ export const authLogin = async (email: string, password: string) => {
 export const authCheckStatus = async () => {
   try {
     const {data} = await productsApi.get<AuthResponse>('/auth/check-status');
+
     return returnUserToken(data);
   } catch (error) {
-    console.error(error);
+    console.log('estoy aqui al error de check-status de axios ' + error);
     return null;
   }
 };

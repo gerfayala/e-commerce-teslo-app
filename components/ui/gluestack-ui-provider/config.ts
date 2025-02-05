@@ -104,7 +104,7 @@ export const config = {
     /* Typography */
     '--color-typography-0': '254 254 255',
     '--color-typography-50': '245 245 245',
-    '--color-typography-100': '229 229 229',
+    '--color-typography-100': '0 0 0',
     '--color-typography-200': '219 219 220',
     '--color-typography-300': '212 212 212',
     '--color-typography-400': '163 163 163',
@@ -130,7 +130,7 @@ export const config = {
     '--color-outline-950': '26 23 23',
 
     /* Background */
-    '--color-background-new-1': '#fffff',
+    '--color-background-1': '#fffff',
     '--color-background-0': '255 255 255',
     '--color-background-50': '246 246 246',
     '--color-background-100': '242 241 241',
@@ -258,7 +258,7 @@ export const config = {
     /* Typography */
     '--color-typography-0': '23 23 23',
     '--color-typography-50': '38 38 39',
-    '--color-typography-100': '64 64 64',
+    '--color-typography-100': '255 255 255',
     '--color-typography-200': '82 82 82',
     '--color-typography-300': '115 115 115',
     '--color-typography-400': '140 140 140',
@@ -284,9 +284,9 @@ export const config = {
     '--color-outline-950': '253 254 254',
 
     /* Background */
-    '--color-background-new-1': '#1f2b43',
     '--color-background-0': '18 18 18',
-    '--color-background-50': '39 38 37',
+    '--color-background-1': '28 43 69',
+    '--color-background-50': '28 43 69',
     '--color-background-100': '65 64 64',
     '--color-background-200': '83 82 82',
     '--color-background-300': '116 116 116',
