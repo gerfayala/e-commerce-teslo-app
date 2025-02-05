@@ -149,7 +149,7 @@ module.exports = {
           950: 'rgb(var(--color-outline-950)/<alpha-value>)'
         },
         background: {
-          1: 'var(--color-background-new-1)',
+          1: 'rgb(var(--color-background-1)/<alpha-value>)',
           0: 'rgb(var(--color-background-0)/<alpha-value>)',
           50: 'rgb(var(--color-background-50)/<alpha-value>)',
           100: 'rgb(var(--color-background-100)/<alpha-value>)',
