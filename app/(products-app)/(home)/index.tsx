@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const handleClose = () => setShowActionsheet(false);
   return (
     <View
-      className="bg-background-1"
+      className="bg-white"
       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
     >
       <VStack space="md">

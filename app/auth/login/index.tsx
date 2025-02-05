@@ -18,10 +18,40 @@ import {Button, ButtonIcon, ButtonText} from '@/components/ui/button';
 import {Box} from '@/components/ui/box';
 import {HStack} from '@/components/ui/hstack';
 import {router} from 'expo-router';
+import {useAuthStore} from '@/theme/presentation/auth/store/useAuthStore';
+import {Alert} from 'react-native';
 
 const LoginScreen = () => {
+  const {login} = useAuthStore();
   const [isInvalid, setIsInvalid] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState('');
+
+  const [isPosting, setIsPosting] = React.useState(false);
+
+  const [form, setForm] = React.useState({
+    email: '',
+    password: ''
+  });
+
+  const onLogin = async () => {
+    const {email, password} = form;
+
+    if (email.length === 0 || password.length === 0) {
+      setIsInvalid(true);
+      return;
+    }
+
+    setIsPosting(true);
+    const wasSuccess = await login(email, password);
+    setIsPosting(false);
+
+    if (wasSuccess) {
+      router.replace('/');
+      return;
+    }
+
+    Alert.alert('Error', 'Credenciales incorrectas');
+  };
+
   return (
     <VStack className="flex flex-1 justify-center px-12 bg-background-light">
       <Text className="font-kanit-bold text-3xl color-typography-100">
@@ -43,8 +73,8 @@ const LoginScreen = () => {
             <InputField
               type="text"
               placeholder="Correo Electrónico"
-              value={inputValue}
-              onChangeText={(text) => setInputValue(text)}
+              value={form.email}
+              onChangeText={(text) => setForm({...form, email: text})}
             />
           </Input>
 
@@ -67,8 +97,8 @@ const LoginScreen = () => {
             <InputField
               type="password"
               placeholder="Contraseńa"
-              value={inputValue}
-              onChangeText={(text) => setInputValue(text)}
+              value={form.password}
+              onChangeText={(text) => setForm({...form, password: text})}
             />
           </Input>
 
@@ -82,7 +112,12 @@ const LoginScreen = () => {
       </VStack>
 
       <Box className="width-full my-4 ">
-        <Button className=" bg-primary-1 justify-center" size="xl">
+        <Button
+          className=" bg-primary-1 justify-center"
+          size="xl"
+          onPress={onLogin}
+          disabled={isPosting}
+        >
           <ButtonText className="font-kanit-regular tex-sm ">
             Ingresar
           </ButtonText>

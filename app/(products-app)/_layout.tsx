@@ -1,12 +1,15 @@
 import {Box} from '@/components/ui/box';
+import {Icon} from '@/components/ui/icon';
 import {Spinner} from '@/components/ui/spinner';
 import {useAuthStore} from '@/theme/presentation/auth/store/useAuthStore';
 import {Redirect, Stack} from 'expo-router';
+import {ArrowLeft} from 'lucide-react-native';
 import {useEffect} from 'react';
+import {Pressable} from 'react-native';
 import colors from 'tailwindcss/colors';
 
 const CheckAuthenticationLayout = () => {
-  const {status, checkStatus} = useAuthStore();
+  const {status, checkStatus, logout} = useAuthStore();
 
   useEffect(() => {
     checkStatus();
@@ -24,12 +27,26 @@ const CheckAuthenticationLayout = () => {
   }
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: colors.white
+        }
+      }}
+    >
       <Stack.Screen
         name="(home)/index"
         options={{
-          headerShown: false,
-          title: 'Products'
+          title: 'Products',
+          headerLeft: () => (
+            <Pressable
+              className="mr-4 align-middle justify-center self-center"
+              onPress={logout}
+            >
+              <Icon as={ArrowLeft} size="xl" className="color-black" />
+            </Pressable>
+          )
         }}
       />
     </Stack>
