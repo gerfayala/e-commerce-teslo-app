@@ -10,6 +10,8 @@ import 'react-native-reanimated';
 import '../global.css';
 import {GluestackUIProvider} from '@/components/ui/gluestack-ui-provider';
 
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +23,14 @@ export default function RootLayout() {
     'Kanit-Thin': require('../assets/fonts/Kanit-Thin.ttf')
   });
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false
+      }
+    }
+  });
+
   useEffect(() => {
     if (error) throw error;
 
@@ -29,18 +39,19 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !error) return null;
   return (
-    <GluestackUIProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false
-          }}
+    <QueryClientProvider client={queryClient}>
+      <GluestackUIProvider>
+        <ThemeProvider
+          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
         >
-          {/* <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-        <Stack.Screen name="+not-found" /> */}
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </GluestackUIProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false
+            }}
+          ></Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </GluestackUIProvider>
+    </QueryClientProvider>
   );
 }
